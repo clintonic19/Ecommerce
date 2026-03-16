@@ -12,7 +12,7 @@ router.post('/logout', logoutUser );
 
 router.get('/check-auth', authMiddleware, async (req, res) =>{
     // const user = req.userId;
-    const user = await User.findById(req.userId).select('-password');
+    const user = await User.findById(req.userId).select('-password'); 
     res.status(200).json({
         success: true,
         message: 'User Authenticated',

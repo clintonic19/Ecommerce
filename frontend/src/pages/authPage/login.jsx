@@ -37,7 +37,7 @@ const Login = () => {
       }
       console.log("This is the login response data", data);
     });
-    console.log(formData);
+    // console.log(formData);
   }
 
   return (

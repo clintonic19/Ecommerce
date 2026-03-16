@@ -1,4 +1,5 @@
 import React from 'react'
+import ShoppingHeader from '../../components/shoppingComponents/shoppingHeader'
 
 const Account = () => {
   return (
