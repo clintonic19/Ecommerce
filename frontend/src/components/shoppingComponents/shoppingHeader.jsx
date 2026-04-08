@@ -30,21 +30,22 @@ const MenuItems = () => {
   )
 };
  
- function handleLogout(data) {
-    dispatch(logoutUser());
-    console.log("Logout successful");
-    toast.success(data?.payload?.message || "Logout successful", {
-      variant: "success", 
-      position: "top-right",
-    });       
-  };
+//  function handleLogout(data) {
+//     dispatch(logoutUser());
+//     console.log("Logout successful");
+//     toast.success(data?.payload?.message || "Logout successful", {
+//       variant: "success", 
+//       position: "top-right",
+//     });       
+//   };
 
 // Header component for shopping page
 const HeaderRightContent = () =>{
-  const{user } = useSelector(state=>state.auth);
+  const{ user } = useSelector(state=>state.auth);
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
+  // LOGOUT FUNCTION
    const handleLogout = (data)=> {
     dispatch(logoutUser());
     console.log("Logout successful");
