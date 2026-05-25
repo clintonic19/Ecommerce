@@ -50,7 +50,14 @@ const Products = () => {
             
             <SheetTitle> Add New Product</SheetTitle>
           </SheetHeader> 
-          <UploadImage file={imageFile} setImageFile={setImageFile} url={uploadImageUrl} setUrl={setUploadImageUrl}/>
+          {/* Upload Image */}
+          <UploadImage 
+          // file={imageFile}
+          // setFile={setImageFile}
+          imageFile={imageFile} 
+          setImageFile={setImageFile} 
+          uploadImageUrl={uploadImageUrl} 
+          setUploadImageUrl={setUploadImageUrl} />
 
           {/* Product Form*/}
           <div className="py-6">

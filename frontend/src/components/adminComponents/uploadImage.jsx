@@ -2,8 +2,10 @@ import React, { useRef } from 'react'
 import { Label } from '../ui/label'
 import { Input } from '../ui/input'
 import { FileIcon, UploadCloudIcon, X, XIcon } from 'lucide-react';
+import { Button } from '../ui/button';
 
-const UploadImage = ({imageFile, setImageFile, uploadImageUrl, setUploadImageUrl}) => {
+const UploadImage = ({imageFile, setImageFile, uploadImageUrl, setUploadImageUrl }) => {
+
   const inputRef = useRef(null);
 
   // function to handle image file change
@@ -11,15 +13,14 @@ const UploadImage = ({imageFile, setImageFile, uploadImageUrl, setUploadImageUrl
     e.preventDefault();
     console.log("File upload", e.target?.files);
     const file = e.target?.files?.[0];
-    // const file = e.target.files?.[0];
     if(file) setImageFile(file); 
   };
 
   // function to handle drag over
   const handleDragOver = (e) =>{
     e.preventDefault();
-    // const fileDragged = e.dataTransfer.files[0];
-    // if(fileDragged) setImageFile(fileDragged);
+    const fileDragged = e.dataTransfer.files?.[0];
+    if(fileDragged) setImageFile(fileDragged);
   };
 
   // function to handle dropped over
@@ -43,20 +44,25 @@ const UploadImage = ({imageFile, setImageFile, uploadImageUrl, setUploadImageUrl
     <div className="w-full max-w-md mx-auto mt-5">
         <Label className="text-lg font-semibold mb-2 block">Upload Image:</Label>
         <div onDragOver={handleDragOver} onDrop={handleDropOver} className='border-2 border-dashed rounded-lg p-4'>
-            <Input type="file"  id='uploadImage' 
-            className='hidden' 
-            ref={inputRef} 
-            onChange={handleImagFileChange} />
+
+            <Input 
+            type= "file"  
+            id= "uploadImage"
+            className= "hidden" 
+            ref= {inputRef} 
+            onChange= {handleImagFileChange} />
 
             {/* Select an Image to upload function */}
-            {
-              !imageFile ?
-              <Label htmlFor='fileUpload'
+            
+            { !imageFile ? (
+              <Label htmlFor='uploadImage'
               className='flex flex-col items-center justify-center h-32 cursor-pointer'>
+                
                 <UploadCloudIcon className='w-10 h-10 mb-2 text-muted-foreground'/>
                 <span className='text-sm text-center'>Drag and drop here or Click to select an image to upload</span>
 
-              </Label> : <div className='flex items-center justify-center'>
+              </Label> ) : ( <div className='flex items-center justify-center'>
+                
                 <div className='flex items-center justify-between'>
                   <FileIcon className='h-7 w-7 text-primary mr-2'/>
                   <p className='text-sm font-medium'>{imageFile?.name}</p>
@@ -66,6 +72,7 @@ const UploadImage = ({imageFile, setImageFile, uploadImageUrl, setUploadImageUrl
                   </Button>
                 </div>
               </div>
+              )
             }
         </div>
 

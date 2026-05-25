@@ -76,6 +76,7 @@ function App() {
             }>
 
             {/* Future shopping routes will go here */}
+            {/* <Route path="/" element={<Home />} /> */}
             <Route path="home" element={<Home />} />
             <Route path="account" element={<Account />} />
             <Route path="checkout" element={<Checkout />} />
