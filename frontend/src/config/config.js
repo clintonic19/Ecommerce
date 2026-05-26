@@ -91,12 +91,14 @@ export const addProductFormElements = [
     type: "text",
     placeholder: "Enter product title",
   },
+
   {
     label: "Description:",
     name: "description",
     componentType: "textarea",
     placeholder: "Enter product description",
   },
+
   {
     label: "Category:",
     name: "category",
@@ -123,6 +125,7 @@ export const addProductFormElements = [
       { id: "h&m", label: "H&M" },
     ],
   },
+
   {
     label: "Price:",
     name: "price",
@@ -130,6 +133,7 @@ export const addProductFormElements = [
     type: "number",
     placeholder: "Enter product price",
   },
+
   {
     label: "Sale Price:",
     name: "salePrice",
@@ -137,11 +141,116 @@ export const addProductFormElements = [
     type: "number",
     placeholder: "Enter sale price (optional)",
   },
+
   {
     label: "Total Stock:",
     name: "totalStock",
     componentType: "input",
     type: "number",
     placeholder: "Enter total stock",
+  },
+];
+
+//menu items for nav bar
+
+export const menuItemsHeaders = [
+  {
+    id: "home",
+    label: "Home",
+    path: "/shop/home"
+  },
+
+   {
+    id: "men",
+    label: "Men",
+    path: "/shop/list"
+  },
+
+   {
+    id: "women",
+    label: "Women",
+    path: "/shop/list"
+  },
+
+   {
+    id: "kids",
+    label: "Kids",
+    path: "/shop/list"
+  },
+
+   {
+    id: "accessories",
+    label: "Accessories",
+    path: "/shop/list"
+  },
+
+   {
+    id: "footwear",
+    label: "Footwear",
+    path: "/shop/list"
+  },
+
+]
+
+export const filterOptions = {
+  category: [
+    { id: "Men", label: "Men" },
+    { id: "Women", label: "Women" },
+    { id: "Kids", label: "Kids" },
+    { id: "Accessories", label: "Accessories" },
+    { id: "Footwear", label: "Footwear" },
+  ],
+  
+  brand: [
+    { id: "Nike", label: "Nike" },
+    { id: "Adidas", label: "Adidas" },
+    { id: "Puma", label: "Puma" },
+    { id: "Levi's", label: "Levi's" },
+    { id: "Zara", label: "Zara" },
+    { id: "H&M", label: "H&M" },
+  ],
+};
+
+export const sortOptions = [
+  { id: "price-hightolow", label: "Price: High to Low" },
+  { id: "price-lowtohigh", label: "Price: Low to High" },
+  { id: "title-atoz", label: "Title: A to Z" },
+  { id: "title-ztoa", label: "Title: Z to A" },
+];
+
+export const addressFormControls = [
+  {
+    label: "Address",
+    name: "address",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter your address",
+  },
+  {
+    label: "City",
+    name: "city",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter your city",
+  },
+  {
+    label: "Pincode",
+    name: "pincode",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter your pincode",
+  },
+  {
+    label: "Phone",
+    name: "phone",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter your phone number",
+  },
+  {
+    label: "Notes",
+    name: "notes",
+    componentType: "textarea",
+    placeholder: "Enter any additional notes",
   },
 ];

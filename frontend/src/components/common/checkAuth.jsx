@@ -4,7 +4,7 @@ const CheckAuth = ({ isAuthenticated, user, children }) => {
 
     const location = useLocation();
 
-    console.log("CheckAuth component", isAuthenticated, user, location.pathname);
+    // console.log("CheckAuth component", isAuthenticated, user, location.pathname);
 
     // Check if user is not authenticated and trying to access protected routes
     if(!isAuthenticated && !(location.pathname.includes('/login') || location.pathname.includes('/register'))) {

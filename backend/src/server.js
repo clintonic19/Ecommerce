@@ -9,6 +9,7 @@ const connectDB = require('./database/db')
 
 //LOCAL IMPORTs
 const mainRoutes = require('./routes/main.route');
+// const adminRoutes = require('./routes/admin/products.routes');
 
 // Initialize Express app
 const app = express();
@@ -34,12 +35,13 @@ app.use(cors(
     }
 ));
 
-app.use(multer().any());
+// app.use(multer());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //ROUTES
+// Importing all Local route modules
 // Importing all Local route modules
 app.use('/api', mainRoutes);
 

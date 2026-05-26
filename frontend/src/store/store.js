@@ -1,10 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth-slice/authSlice';
+import adminProductSlice from './admin/products-slice/productSlice';
+import shoppingViewProductSlice from './shoppingView/productShoppingViewSlice';
 
 const store = configureStore({
     reducer: {
        
-        auth: authReducer
+        auth: authReducer,
+        adminProducts: adminProductSlice,
+        shoppingViewProducts: shoppingViewProductSlice,
     },
 
     // middleware: (getDefaultMiddleware) =>
@@ -13,3 +17,6 @@ const store = configureStore({
 });
 
 export default store;
+
+// format to installing dependencies
+//npx shadcn@latest add skeleton

@@ -1,14 +1,21 @@
 import React from 'react'
 import { AlignJustify, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logoutUser } from '../../store/auth-slice/authSlice';
+import { toast } from 'sonner';
 
 const AdminHeader = ({ setOpen }) => {
-// const dispatch = useDispatch();
+const dispatch = useDispatch();
 
-  function handleLogout() {
-    // dispatch(logoutUser());
-  }
+  function handleLogout(data) {
+    dispatch(logoutUser());
+    console.log("Logout successful");
+    toast.success(data?.payload?.message || "Logout successful", {
+      variant: "success", 
+      position: "top-right",
+    });       
+  };
 
   return (
     // Admin Header

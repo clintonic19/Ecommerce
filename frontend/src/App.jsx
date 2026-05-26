@@ -35,7 +35,7 @@ function App() {
   }, [dispatch]);
 
   if(isLoading) return <Loader/>
-  console.log("App jsx page", isAuthenticated, user);
+  // console.log("App jsx page", isAuthenticated, user);
   
   return (
     <>
@@ -87,7 +87,7 @@ function App() {
           {/* NOT FOUND PAGE ROUTE */}
           <Route path="*" element={<NotFound/>} />
           <Route path="/unauthorized" element={<UnAuthorized/>} />
-
+          
       </Routes>
 
     </div>

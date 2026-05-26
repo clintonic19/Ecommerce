@@ -13,7 +13,7 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 
-const Form = ({ formControls, FormData, setFormData, onSubmit, buttonText }) => {
+const Form = ({ formControls, FormData, setFormData, onSubmit, buttonText, isBtnDisabled, }) => {
    
     function inputByComponentType (getControlItem){
 
@@ -95,7 +95,7 @@ const Form = ({ formControls, FormData, setFormData, onSubmit, buttonText }) => 
                 )}
         </div>
 
-        <Button className="mt-8 w-full " type="submit">{buttonText || 'Submit'}</Button>
+        <Button disabled={isBtnDisabled} className="mt-8 w-full" type="submit">{buttonText || 'Submit'}</Button>
 
         {/* <Button
           type='submit'
