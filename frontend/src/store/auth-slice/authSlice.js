@@ -23,7 +23,6 @@ export const registerUser = createAsyncThunk('/auth/register',
                 //     'Content-Type': 'application/json',
                 // },
             });
-            console.log("This is the response from the server", res);
             return res?.data;
         } catch (error) {
             console.log("Error in user registration", error);
@@ -43,7 +42,6 @@ export const loginUser = createAsyncThunk('/auth/login',
                 //     'Content-Type': 'application/json',
                 // },
             });
-            console.log(res, "This is the response from the server");
             return res?.data;
         } catch (error) {
             console.log("Error in user login", error);
@@ -64,7 +62,6 @@ export const logoutUser = createAsyncThunk('/auth/logout',
                 //     'Content-Type': 'application/json',
                 // },
             });
-            console.log(res, "This is the response from the server");
             return res?.data;
         } catch (error) {
             console.log("Error in user login", error);
@@ -86,7 +83,6 @@ export const checkAuth = createAsyncThunk('/auth/check-auth',
                     // 'Content-Type': 'application/json',
                 },
             });
-            console.log(res, "This is the response from the server");
             return res?.data;
         } catch (error) {
             console.log("Error in user authentication check", error);
@@ -116,6 +112,7 @@ const authSlice = createSlice({
     //async actions for register user && tank method
     extraReducers: (builder) =>{
         builder
+        // Async actions for register user
             .addCase(registerUser.pending, (state) =>{
                 state.isLoading = true;
                 state.error = null;
@@ -171,6 +168,7 @@ const authSlice = createSlice({
                 state.user = null;
                 state.isAuthenticated = false;
                 state.error = action.payload || "Login failed";
+                
                 // Logout user 
             }).addCase(logoutUser.fulfilled, (state, action) =>{
                 console.log("Logout filled action", action);

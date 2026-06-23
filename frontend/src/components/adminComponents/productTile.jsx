@@ -14,13 +14,19 @@ const AdminProductTile = ({product, setFormData, setCurrentProductId, setShowCre
             <CardContent>
                 <h3 className='text-lg font-semibold mb-2 mt-8'>{product?.title}</h3>
                 <p className='text-sm text-muted-foreground mb-4'>{product?.description}</p>
-                <div className='flex items-center justify-between'>
+                <div className='flex items-center justify-between mb-2'>
                     <span className='text-green-600 font-bold text-lg'>${product?.salePrice || product?.price}</span>
                    
                     {/* Sale price indicator */}
                     {product?.salePrice && 
                         <span className='text-sm text-muted-foreground line-through'>${product?.price}</span>
                     }
+
+                    {/* {
+                        product.salePrice > 0 ? (
+                            <span className='text-sm text-muted-foreground line-through'>${product?.price}</span>
+                        ) : null
+                    }  */}
                 </div>
             </CardContent>
 
@@ -33,7 +39,7 @@ const AdminProductTile = ({product, setFormData, setCurrentProductId, setShowCre
                     setCurrentProductId(product?._id);
                     setFormData(product);
                 }}
-                className='px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-700 transition'>Edit</button>                
+                className='px-4 py-2 bg-gray-700 text-white rounded hover:bg-green-800 transition'>Edit</button>                
                 
                 {/* Delete Product button */}
                 <button 

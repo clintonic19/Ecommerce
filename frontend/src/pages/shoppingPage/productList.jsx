@@ -6,31 +6,124 @@ import { Button } from '../../components/ui/button'
 import { ArrowUpDownIcon } from 'lucide-react'
 import { sortOptions } from '../../config/config'
 import { useDispatch, useSelector } from 'react-redux'
-import { filterAllProducts } from '../../store/shoppingView/productShoppingViewSlice'
-import ProductTileShoppingView from './ProductTileShoppingView'
+import { fetchProductDetails, filterAllProducts } from '../../store/shoppingView/productShoppingViewSlice'
+import ProductTileShoppingView from '../../components/shoppingComponents/ProductTileShoppingView'
+import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import ProductDetailsContent from '../../components/shoppingComponents/productDetails.jsx'
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const {productList} = useSelector((state) => state.shoppingViewProducts);
+  const {productList, productDetails} = useSelector((state) => state.shoppingViewProducts);
+  // const [filters, setFilters] = useState(null);
+  const [filters, setFilters] = useState(() => {
+  const stored = sessionStorage.getItem("productFilters");
+  return stored ? JSON.parse(stored) : {};
+});
+
+  const [sortBy, setSortBy] = useState(null);
+   const [searchParams, setSearchParams] = useSearchParams();
+   const [openProductDetails, setOpenProductDetails] = useState(false);
+
+  // Helper function to create search params from filters
+  const createSearchParamsHelper = (filterParams) =>{
+     const queryParams = []; // Initialize an array to hold individual query parameters
+
+  for (const [key, value] of Object.entries(filterParams)) {
+    if (Array.isArray(value) && value.length > 0) {
+      const paramValue = value.join(",");
+      queryParams.push(`${key}=${encodeURIComponent(paramValue)}`); // Encode the parameter value to handle special characters
+    }
+  }
+
+  console.log(queryParams, "queryParams");
+
+  return queryParams.join("&");
+
+  }
+
+  // Handle SortBy Option change
+  const handleSortBy = (value) =>{
+    setSortBy(value); 
+  }
+
+  // Handle filter option change
+  const handleFilterOptions = (sectionFilterId, currentFilter) => {
+  let updatedFilters = filters ? { ...filters } : {};
+
+  const indexOfCurrentFilter = Object.keys(updatedFilters).indexOf(sectionFilterId);
+
+  if (indexOfCurrentFilter === -1) {
+    // sectionFilterId doesn't exist yet — create it with currentFilter as first item
+    updatedFilters = { ...updatedFilters, [sectionFilterId]: [currentFilter] };
+  } else {
+    const currentFiltersArray = [...updatedFilters[sectionFilterId]]; // copy to avoid direct mutation
+    const indexOfCurrentFilterInArray = currentFiltersArray.indexOf(currentFilter);
+
+    if (indexOfCurrentFilterInArray === -1) {
+      // Filter not present — add it
+      currentFiltersArray.push(currentFilter); // ✅ Fix: push into the copied array, not a new one
+    } else {
+      // Filter already present — remove it
+      currentFiltersArray.splice(indexOfCurrentFilterInArray, 1);
+    }
+
+    updatedFilters = { ...updatedFilters, [sectionFilterId]: currentFiltersArray };
+  }
+  setFilters(updatedFilters);// Update the state with the new filters
+  sessionStorage.setItem("productFilters", JSON.stringify(updatedFilters));
+  console.log("Updated filters:::", updatedFilters);
+};
 
   // FETCH ALL PRODUCTS FROM API
   useEffect(()=>{
-    dispatch(filterAllProducts());
-    console.log("Filter::: Products filtered successfully");
-  },[dispatch])
+    if(filters !== null && sortBy !== null)
+      dispatch(filterAllProducts({filterParams : filters, sortParams : sortBy}));
+    console.log("Filter:", searchParams, filters);
+  },[dispatch, sortBy, filters]);
 
-  console.log("Product List:::", productList);
+  // Search params change effect to update filters state
+   useEffect(() => {
+    if (filters && Object.keys(filters).length > 0) {
+      const createQueryString = createSearchParamsHelper(filters);
+      setSearchParams(new URLSearchParams(createQueryString));
+    }
+  }, [filters]);
 
+  // Set filters from session storage on component mount
+  useEffect(()=>{
+    setSortBy("price-lowtohigh");
+    setFilters(JSON.parse(sessionStorage.getItem("productFilters")) || {});
+  },[])
+
+  // Handle product details click
+  const handleProductDetails = (currentProductId) =>{
+    console.log("Current Product ID:", currentProductId);
+    dispatch(fetchProductDetails(currentProductId));
+  }
+
+  // Fetch product details when productDetails state changes
+  useEffect(() => {
+    if (productDetails !== null) {
+      setOpenProductDetails(true);
+    }
+  }, [productDetails]);
+
+  console.log("productDetails::", productDetails);
+  
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6">
-        <Filter/>
+{/* Filter sidebar */}
+        <Filter filters={filters} handleFilterOptions={handleFilterOptions}/>
+
         {/* Right side to display products items */}
         <div className="bg-background w-full shadow-sm rounded-lg">
           <div className="border-b p-4 justify-between flex items-center">
-            <h2 className='text-lg font-semibold'>All Products</h2>
+            <h2 className='text-lg font-extrabold'>All Products</h2>
             <div className="flex items-center gap-4"> 
-              <span className="text-sm text-muted-foreground">10 Products</span>
+              <span className="text-sm text-muted-foreground">{productList?.length || 0} Products</span>
+               
                {/* Dropdown for sorting */}
             <DropdownMenu>
               <DropdownMenuTrigger>
@@ -40,11 +133,13 @@ const ProductList = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-[200px]'>
-                <DropdownMenuRadioGroup>
+
+                {/* Sort options */}
+                <DropdownMenuRadioGroup value={sortBy} onValueChange={handleSortBy} >
                   {
                     sortOptions.map((option) => (
-                      <DropdownMenuRadioItem key={option.id} onSelect={() => console.log("Sort option ID::", option.id)}>
-                        {option.label}
+                      <DropdownMenuRadioItem key={option?.id} value={option?.id} >
+                        {option?.label}
                       </DropdownMenuRadioItem>
                     ))
                   }
@@ -54,12 +149,13 @@ const ProductList = () => {
             </DropdownMenu>
             </div>         
           </div>
+
           {/* Product items will be displayed here */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
             {
               productList && productList?.length > 0 ? (
                 productList?.map((product) => (
-                  <ProductTileShoppingView key={product?._id} product={product}/>
+                  <ProductTileShoppingView handleProductDetails={handleProductDetails} key={product?._id} product={product}/>
                 ))
               ) : (
                 <div className="col-span-full text-center py-10">
@@ -67,9 +163,15 @@ const ProductList = () => {
                 </div>
               )              
             }
-
           </div>
         </div>
+
+        {/* Product Details Dialog */}
+        <ProductDetailsContent 
+        open={openProductDetails} 
+        setOpen={setOpenProductDetails} 
+        productDetails={productDetails} 
+        />
       </div>
     </>
   )

@@ -10,13 +10,14 @@ import { Skeleton } from "../ui/skeleton";
 const UploadImage = ({
   imageFile, 
   setImageFile,
-   setImageLoading, 
+   setImageLoading,
+   imageLoading, 
    uploadImageUrl, 
    isEditMode,
    setUploadImageUrl }) => {
   const inputRef = useRef(null);
 
-  // function to handle image file change
+  // function to handle image file change/upload
   const handleImagFileChange =(e) =>{
     e.preventDefault();
     console.log("File upload:::", e.target?.files);
@@ -88,9 +89,9 @@ const UploadImage = ({
   if (!(imageFile instanceof File)) return;
 
   isUploadingRef.current = true;
-  setImageLoading(true);
 
   try {
+    setImageLoading(true);
     const data = new FormData();
     data.append("file", imageFile);
 
@@ -148,7 +149,7 @@ const UploadImage = ({
   return (
     <div className="w-full max-w-md mx-auto mt-5">
         <Label className="text-lg font-semibold mb-2 block">Upload Image:</Label>
-        <div onDragOver={handleDragOver} onDrop={handleDropOver} className={ `${isEditMode ? 'opacity-40' : ''} border-2 border-dashed rounded-lg p-4`}>
+        <div onDragOver={handleDragOver} onDrop={handleDropOver} className={ `${isEditMode ? 'opacity-50' : ''} border-2 border-dashed rounded-lg p-4`}>
             <Input 
             type="file"  
             id='fileUpload' 
@@ -167,7 +168,7 @@ const UploadImage = ({
                 <span className='text-sm text-center'>Drag and drop here or Click to select an image to upload</span>
               </Label>
               ) : ( 
-                setImageLoading ?
+                imageLoading ?
                 <Skeleton className='h-10 bg-gray-100'/> : 
                 
               <div className='flex items-center justify-center'>

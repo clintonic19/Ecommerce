@@ -1,13 +1,13 @@
 import React from 'react'
-import { Card, CardContent, CardFooter } from '../../components/ui/card'
-import { Badge } from '../../components/ui/badge'
-import { Button } from '../../components/ui/button'
+import { Card, CardContent, CardFooter } from '../ui/card'
+import { Badge } from '../ui/badge'
+import { Button } from '../ui/button'
 
-const ProductTileShoppingView = ({product}) => {
+const ProductTileShoppingView = ({product, handleProductDetails}) => {
   return (
     <>
             <Card className='w-full max-w-sm max-auto'>
-               <div>
+               <div onClick={()=> handleProductDetails(product?._id)}>
                     <div className="relative">
                         <img 
                         src={product?.image}

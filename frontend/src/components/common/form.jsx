@@ -95,7 +95,7 @@ const Form = ({ formControls, FormData, setFormData, onSubmit, buttonText, isBtn
                 )}
         </div>
 
-        <Button disabled={isBtnDisabled} className="mt-8 w-full" type="submit">{buttonText || 'Submit'}</Button>
+        <Button disabled={isBtnDisabled} className="mt-8 w-full" type="submit">{buttonText || 'Submit'}</Button>      
 
         {/* <Button
           type='submit'

@@ -97,9 +97,16 @@ const editProduct = async(req, res) =>{
         }, {new: true});
 
         if(updateProduct){
-            res.status(200).json({ success: true, message: "Product updated successfully", data: updateProduct });
+            res.status(200).json({ 
+                success: true, 
+                message: "Product updated successfully", 
+                data: updateProduct 
+            });
         } else {
-            res.status(404).json({ success: false, message: `Product with ${productId} Not Found ` });
+            res.status(404).json({ 
+                success: false, 
+                message: `Product with ${productId} Not Found ` 
+            });
         }
 
     } catch (error) {
@@ -122,9 +129,16 @@ const deleteProduct = async(req, res) =>{
         const deletedProduct = await Product.findByIdAndDelete(productId);
 
         if(deletedProduct){
-            res.status(200).json({ success: true, message: "Product deleted successfully", data: deletedProduct });
+            res.status(200).json({ 
+                success: true, 
+                message: "Product deleted successfully", 
+                data: deletedProduct 
+            });
         } else {
-            res.status(404).json({ success: false, message: `Product with ${productId} Not Found ` });
+            res.status(404).json({ 
+                success: false, 
+                message: `Product with ${productId} Not Found ` 
+            });
         };
 
     } catch (error) {

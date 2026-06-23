@@ -151,8 +151,7 @@ export const addProductFormElements = [
   },
 ];
 
-//menu items for nav bar
-
+//menu items for shopping view nav bar
 export const menuItemsHeaders = [
   {
     id: "home",
@@ -194,20 +193,20 @@ export const menuItemsHeaders = [
 
 export const filterOptions = {
   category: [
-    { id: "Men", label: "Men" },
-    { id: "Women", label: "Women" },
-    { id: "Kids", label: "Kids" },
-    { id: "Accessories", label: "Accessories" },
-    { id: "Footwear", label: "Footwear" },
+    { id: "men", label: "Men" },
+    { id: "women", label: "Women" },
+    { id: "kids", label: "Kids" },
+    { id: "accessories", label: "Accessories" },
+    { id: "footwear", label: "Footwear" },
   ],
   
   brand: [
-    { id: "Nike", label: "Nike" },
-    { id: "Adidas", label: "Adidas" },
-    { id: "Puma", label: "Puma" },
-    { id: "Levi's", label: "Levi's" },
-    { id: "Zara", label: "Zara" },
-    { id: "H&M", label: "H&M" },
+    { id: "nike", label: "Nike" },
+    { id: "adidas", label: "Adidas" },
+    { id: "puma", label: "Puma" },
+    { id: "levi", label: "Levi's" },
+    { id: "zara", label: "Zara" },
+    { id: "h&m", label: "H&M" },
   ],
 };
 

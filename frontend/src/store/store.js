@@ -5,7 +5,7 @@ import shoppingViewProductSlice from './shoppingView/productShoppingViewSlice';
 
 const store = configureStore({
     reducer: {
-       
+            
         auth: authReducer,
         adminProducts: adminProductSlice,
         shoppingViewProducts: shoppingViewProductSlice,

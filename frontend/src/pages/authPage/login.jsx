@@ -7,7 +7,8 @@ import Button from '../../components/button';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../store/auth-slice/authSlice';
 import { toast } from 'sonner';
-
+import {  FaGooglePlusG } from "react-icons/fa";  
+import { useAuth } from '../../reactContext/authContext';
 
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
 
 const Login = () => {
   const [formData, setFormData] = useState(initialState);
+  // const { signUpWithGoogle } = useAuth();
   const dispatch = useDispatch();
 
     
@@ -39,6 +41,17 @@ const Login = () => {
     });
     // console.log(formData);
   }
+
+  //   GOOGLE SIGN IN
+     const handleGoogleSignIn = async () => {
+        try {
+            const user = await signUpWithGoogle();
+            alert('User Logged In Successfully', user);
+        } catch (error) {
+            console.log(error);
+            // setMessage('Unable to Sign In With Google Auth');
+        }
+      }
 
   return (
     <div className='mx-auto w-full max-w-md space-y-6  '>
@@ -64,6 +77,16 @@ const Login = () => {
           Don't have an account?
           <Link className='hover:text-red-700 hover:underline' to={'/auth/register'}> Register </Link>
           </span>
+
+            {/* google sign in */}
+                    <div className='mt-4'>
+                        <button 
+                           onClick={handleGoogleSignIn}
+                        className='w-full flex flex-wrap gap-1 items-center justify-center bg-primary text-white font-bold py-2 px-4 rounded-md focus:outline-none'>
+                        <FaGooglePlusG  className='mr-2'/>
+                            Sign in with Google
+                        </button>
+                    </div>
         </div>
     
     </div>

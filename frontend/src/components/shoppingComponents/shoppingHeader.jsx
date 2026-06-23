@@ -11,18 +11,19 @@ import { logoutUser } from '../../store/auth-slice/authSlice'
 import { toast } from 'sonner'
 
 
+// Menu items component for Desktop Navigation or Large Devices
 const MenuItems = () => {
   return(
     <>
           <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
-          {menuItemsHeaders?.map((items) => (
+          {menuItemsHeaders?.map((menu) => (
             <Link
               // onClick={() => (MenuItems)}
               className="text-sm font-medium cursor-pointer"
-              key={items?.id}
-              to={items?.path}
+              key={menu?.id}
+              to={menu?.path}
             >
-              {items?.label}
+              {menu?.label}
             </Link>
           ))}
         </nav>
@@ -30,15 +31,6 @@ const MenuItems = () => {
   )
 };
  
-//  function handleLogout(data) {
-//     dispatch(logoutUser());
-//     console.log("Logout successful");
-//     toast.success(data?.payload?.message || "Logout successful", {
-//       variant: "success", 
-//       position: "top-right",
-//     });       
-//   };
-
 // Header component for shopping page
 const HeaderRightContent = () =>{
   const{ user } = useSelector(state=>state.auth);
@@ -70,13 +62,14 @@ const HeaderRightContent = () =>{
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger> 
-            <DropdownMenuContent side="right" className="w-56">
+            <DropdownMenuContent side="right" className="w-50">
               <DropdownMenuLabel>Logged in as {user?.firstName }</DropdownMenuLabel>
                 <DropdownMenuSeparator/>
+
                 {/* User Info */}
                 <DropdownMenuItem onClick={()=>navigate('/shop/account')}>
                   <User className="mr-2 h-4 w-4" />
-                  <span>My Account</span>
+                  <span>Profile</span>
                 </DropdownMenuItem>
 
                 <DropdownMenuSeparator/>
@@ -128,14 +121,14 @@ const ShoppingHeader = () => {
         </div>
 
         {/* Check auth user to display info */}
-        {/* {
+        {
           isAuthenticated ? <div className="hidden lg:block">
             <HeaderRightContent/>
           </div> : null
-        } */}
-        <div className="hidden lg:block">
+        }
+        {/* <div className="hidden lg:block">
             <HeaderRightContent/>
-        </div>
+        </div> */}
 
       </div>
     </header>

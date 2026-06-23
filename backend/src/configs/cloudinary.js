@@ -11,6 +11,7 @@ cloudinary.config({
 // Configure Multer for file uploads
 
 const storage = multer.memoryStorage();
+//
 const upload = multer({ storage });
 
 const handleImageUpload = (buffer) => {

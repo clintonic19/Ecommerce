@@ -30,7 +30,7 @@ const Products = () => {
   const [imageFile, setImageFile] = useState(null);
   const[uploadImageUrl, setUploadImageUrl] = useState('');
   const [imageLoading, setImageLoading] = useState(false);
-  const { productList } = useSelector((state) => state.adminProducts);
+  const { productList } = useSelector((state) => state.adminProducts); // Access productList from the Redux store
   const[currentProductId, setCurrentProductId] = useState(null);
   const dispatch = useDispatch();
 
@@ -51,6 +51,7 @@ const Products = () => {
   //   setFormData(initialFormData);
   // }
 
+  //Edit /Update product form submit handler
   const onSubmit=(event) =>{
     event.preventDefault();
 
@@ -86,7 +87,7 @@ const Products = () => {
         dispatch(fetchAllProducts());
         setShowCreateProduct(false);       
         imageFile && URL.revokeObjectURL(imageFile);
-        // setImageFile(null);
+        setImageFile(null);
         setFormData(initialFormData);
         // setShowCreateProduct(false);
         toast.success(data?.payload?.message, { 
@@ -124,18 +125,20 @@ const Products = () => {
      
 
   // const isFormValid = Object.values(formData).every(value => value !== '' && value !== null);
-  function isFormValid() {
-    return Object.keys(formData)
-      // .filter((currentKey) => currentKey !== "averageReview")
-      .map((key) => formData[key] !== "")
-      .every((item) => item);
-  }
+  // function isFormValid() {
+  //   return Object.keys(formData)
+  //     // .filter((currentKey) => currentKey !== "averageReview")
+  //     .map((key) => formData[key] !== "")
+  //     .every((item) => item);
+  // }
 
   console.log("Form Data EDIT :::", formData, );
   
   useEffect(() => {
   dispatch(fetchAllProducts());
 }, [dispatch]);
+
+console.log("Product List:::", uploadImageUrl, productList);
 
 //   useEffect(() => {
 //   if (uploadImageUrl) {

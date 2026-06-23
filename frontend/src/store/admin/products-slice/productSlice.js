@@ -15,6 +15,9 @@ export const addNewProduct = createAsyncThunk('/products/addNewProduct',
             //API Endpoint from Backend      
             const response = await axios?.post('http://localhost:8001/api/admin/products/add-product', formData, {
             withCredentials: true,
+            headers:{
+                'Content-Type': 'application/json'
+            }
         });
 
         return response?.data;
@@ -49,6 +52,9 @@ export const updateProducts= createAsyncThunk('/products/update',
             //API Endpoint from Backend      
             const response = await axios?.put(`http://localhost:8001/api/admin/products/edit-product/${id}`, formData, {
             withCredentials: true,
+             headers:{
+                'Content-Type': 'application/json'
+            }
         });
 
         return response?.data;
@@ -66,6 +72,7 @@ export const deleteProduct= createAsyncThunk('/products/delete',
             //API Endpoint from Backend      
             const response = await axios?.delete(`http://localhost:8001/api/admin/products/delete-product/${id}`, {
             withCredentials: true,
+
         });
 
         return response?.data;
@@ -80,17 +87,14 @@ const adminProductSlice = createSlice({
     name : "adminProduct",
     initialState,
     reducers : {},
-
     //extra reducers for handling async thunks
     extraReducers : (builder) =>{
-        builder.addCase(fetchAllProducts.pending, (state) =>{
+        builder.addCase(fetchAllProducts.pending, (state) =>{ 
             state.isLoading = true;
           }).addCase(fetchAllProducts.fulfilled, (state, action)=>{
-            console.log("action payload:::", action?.payload.data);         
             state.isLoading = false
             state.productList = action?.payload?.data || []
           }).addCase(fetchAllProducts.rejected, (state, action)=>{
-            console.log("action payload:::", action.payload);         
             state.isLoading = false
             state.productList = []
           })

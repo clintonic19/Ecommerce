@@ -5,12 +5,12 @@ const router = express.Router();
 const authRoutes = require('./auth.routes');
 // const messageRoute = require('./message.route');
 const adminRoutes = require('./admin/products.routes');
-const shoppingView = require('./shoppingView/products.routes')
+const shoppingRoutes = require('./shoppingView/products.routes')
 
 // Mounting all Local route modules
 router.use('/auth', authRoutes);
 router.use('/admin/products', adminRoutes);
-router.use('/shop/products', shoppingView)
+router.use('/shop/products', shoppingRoutes)
 
 
 module.exports = router;
