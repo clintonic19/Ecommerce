@@ -60,7 +60,7 @@ const shoppingViewProductSlice = createSlice({
               }).addCase(filterAllProducts.fulfilled, (state, action)=>{
                 state.isLoading = false
                 state.productList = action?.payload?.data || []
-              }).addCase(filterAllProducts.rejected, (state, action)=>{
+              }).addCase(filterAllProducts.rejected, (state)=>{
                 state.isLoading = false
                 state.productList = []
               })
@@ -70,7 +70,7 @@ const shoppingViewProductSlice = createSlice({
               }).addCase(fetchProductDetails.fulfilled, (state, action)=>{
                 state.isLoading = false
                 state.productDetails = action?.payload?.data || []
-              }).addCase(fetchProductDetails.rejected, (state, action)=>{
+              }).addCase(fetchProductDetails.rejected, (state)=>{
                 state.isLoading = false
                 state.productDetails = null
               })

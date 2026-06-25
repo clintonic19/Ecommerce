@@ -3,7 +3,6 @@ const Product = require('../../models/products.models');
 // Filter products based on query parameters (e.g., category, price range, etc.)
 const filterProducts = async(req, res) =>{
     try {
-
         const {category =[], brand = [], sortBy = 'price-lowtohigh'} = req.query; // Get the filter parameters from the query string
 
         let filter = {};
@@ -11,11 +10,9 @@ const filterProducts = async(req, res) =>{
         if (category.length) {
             filter.category = { $in: category.split(',') }; // Filter by category
         }
-
           if (brand.length) {
             filter.brand = { $in: brand.split(',') }; // Filter by brand
         }
-
         // Determine the sort order based on the sortBy parameter
         let sort = {};
         switch (sortBy) {
@@ -35,7 +32,6 @@ const filterProducts = async(req, res) =>{
                 sort.price = 1; // Default to ascending order if no valid sortBy is provided
                 break;
         }
-
         const products = await Product.find({...filter}).sort(sort); // Fetch the filtered and sorted products from the database
         res.status(200).json({ 
             message: 'Products filtered successfully', 
@@ -48,7 +44,6 @@ const filterProducts = async(req, res) =>{
         });
     }
 };
-
 
 const getProducts = async(req, res) =>{
     try {

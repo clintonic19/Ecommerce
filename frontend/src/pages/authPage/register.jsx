@@ -91,7 +91,7 @@ const Register = () => {
                            onClick={handleGoogleSignIn}
                         className='w-full flex flex-wrap gap-1 items-center justify-center bg-primary text-white font-bold py-2 px-4 rounded-md focus:outline-none'>
                         <FaGooglePlusG  className='mr-2'/>
-                            Sign in with Google
+                            Sign In with Google
                         </button>
                     </div>
         </div>  

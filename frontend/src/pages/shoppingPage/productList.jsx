@@ -11,6 +11,8 @@ import ProductTileShoppingView from '../../components/shoppingComponents/Product
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import ProductDetailsContent from '../../components/shoppingComponents/productDetails.jsx'
+import { addToCart, fetchCartItems } from '../../store/cart-slice/cartSlice.js'
+import { toast } from 'sonner'
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -20,10 +22,10 @@ const ProductList = () => {
   const stored = sessionStorage.getItem("productFilters");
   return stored ? JSON.parse(stored) : {};
 });
-
+  const {user} = useSelector(state=>state.auth)
   const [sortBy, setSortBy] = useState(null);
-   const [searchParams, setSearchParams] = useSearchParams();
-   const [openProductDetails, setOpenProductDetails] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [openProductDetails, setOpenProductDetails] = useState(false);
 
   // Helper function to create search params from filters
   const createSearchParamsHelper = (filterParams) =>{
@@ -35,9 +37,6 @@ const ProductList = () => {
       queryParams.push(`${key}=${encodeURIComponent(paramValue)}`); // Encode the parameter value to handle special characters
     }
   }
-
-  console.log(queryParams, "queryParams");
-
   return queryParams.join("&");
 
   }
@@ -75,6 +74,39 @@ const ProductList = () => {
   console.log("Updated filters:::", updatedFilters);
 };
 
+// handle ADD product to CART
+const handleAddToCart = (currentProductId)=>{
+   dispatch(addToCart({userId : user._id, productId : currentProductId, quantity : 1 }))
+   .then((data) => {
+    if(data?.payload.success){
+      dispatch(fetchCartItems(user._id));
+        toast.success(data?.payload?.message, { 
+               variant: "success", 
+               position: "top-right",
+             });
+   } else {
+      toast.error(
+         data?.payload?.message || "Failed to add item",
+         { 
+          variant: "success", 
+          position: "top-right",
+        }
+      );
+    }
+   }); 
+}
+// const handleAddToCart = (currentProductId)=>{
+// dispatch(addToCart(currentProductId)).then((result) => {
+//    if (result?.payload?.success) {
+//       toast.success("Added to cart");
+//    } else {
+//       toast.error(
+//          result?.payload?.message || "Failed to add item"
+//       );
+//    }
+// });
+// }
+
   // FETCH ALL PRODUCTS FROM API
   useEffect(()=>{
     if(filters !== null && sortBy !== null)
@@ -98,7 +130,6 @@ const ProductList = () => {
 
   // Handle product details click
   const handleProductDetails = (currentProductId) =>{
-    console.log("Current Product ID:", currentProductId);
     dispatch(fetchProductDetails(currentProductId));
   }
 
@@ -109,7 +140,6 @@ const ProductList = () => {
     }
   }, [productDetails]);
 
-  console.log("productDetails::", productDetails);
   
   return (
     <>
@@ -155,7 +185,12 @@ const ProductList = () => {
             {
               productList && productList?.length > 0 ? (
                 productList?.map((product) => (
-                  <ProductTileShoppingView handleProductDetails={handleProductDetails} key={product?._id} product={product}/>
+                  <ProductTileShoppingView 
+                  handleProductDetails={handleProductDetails} 
+                  key={product?._id} 
+                  product={product}
+                  handleAddToCart={handleAddToCart}
+                />
                 ))
               ) : (
                 <div className="col-span-full text-center py-10">

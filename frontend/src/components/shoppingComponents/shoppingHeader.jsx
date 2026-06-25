@@ -9,6 +9,10 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { logoutUser } from '../../store/auth-slice/authSlice'
 import { toast } from 'sonner'
+import UserCartWrapper from "./cartWrapper"
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { fetchCartItems } from '../../store/cart-slice/cartSlice'
 
 
 // Menu items component for Desktop Navigation or Large Devices
@@ -34,8 +38,11 @@ const MenuItems = () => {
 // Header component for shopping page
 const HeaderRightContent = () =>{
   const{ user } = useSelector(state=>state.auth);
+  const{cartItems} = useSelector(state=> state.shoppingCartSlice) 
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  const [openCartSheet, setOpenCartSheet] = useState(false)
+  
 
   // LOGOUT FUNCTION
    const handleLogout = (data)=> {
@@ -47,13 +54,27 @@ const HeaderRightContent = () =>{
     });       
   };
 
+  // dispatch cartItems
+  useEffect(()=>{
+    dispatch(fetchCartItems(user._id));
+  }, [dispatch])
+
   return(
     <>
       <div className="flex lg:items-center lg:flex-row flex-col gap-6">
-        <Button variant="outline" size="icon" >
-          <ShoppingCart className='w-6 h-6'/>
-          <span className="sr-only"> User Cart </span>
-        </Button>
+        {/* User cart */}
+        <Sheet open={openCartSheet} onOpenChange={()=>setOpenCartSheet(false)}>
+          <Button onClick={()=>setOpenCartSheet(true)} variant="outline" size="icon" >
+            <ShoppingCart className='w-6 h-6'/>
+            <span className="sr-only"> User Cart </span>
+          </Button>
+          {/* User Cart Items Wrapper */}
+          <UserCartWrapper 
+            // cartItems={ cartItems && cartItems.items &&  cartItems.items.length > 0 ? cartItems.items : []}
+            cartItems={cartItems?.items?.length ? cartItems.items : []} 
+           />
+
+        </Sheet>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar className="bg-black">

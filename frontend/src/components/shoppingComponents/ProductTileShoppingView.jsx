@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 
-const ProductTileShoppingView = ({product, handleProductDetails}) => {
+const ProductTileShoppingView = ({product, handleProductDetails, handleAddToCart}) => {
   return (
     <>
             <Card className='w-full max-w-sm max-auto'>
@@ -31,11 +31,11 @@ const ProductTileShoppingView = ({product, handleProductDetails}) => {
                         <span className='text-sm text-muted-foreground'>{product?.category}</span>
                         {/* <span className='text-sm text-muted-foreground'>{product?.category}</span> */}
                         <span className='text-sm text-muted-foreground'>{product?.brand}</span>
-                      </div>
-
+                      </div>          
+                      {/* Calculation */}
                       <div className='flex justify-between items-center mb-2'>
-                        <span className={`${product?.salePrice > 0 ? 'line-through' : ""} text-lg font-semibold text-primary`}>{product?.price}</span>
-                        {/* <span className={`${product?.salePrice > 0 ? 'line-through' : ""} text-sm text-muted-foreground`}>{product?.price}</span> */}
+                        {/* <span className={`${product?.salePrice > 0 ? 'line-through' : ""} text-lg font-semibold text-primary`}>{product?.price}</span> */}
+                        <span className={`${product?.salePrice > 0 ? 'line-through' : ""} text-sm text-muted-foreground`}>{product?.price}</span>
                         {
                           product?.salePrice > 0 ? (
                             <span className='text-lg font-semibold text-primary'>${product?.salePrice?.toFixed(2)}</span>
@@ -43,13 +43,15 @@ const ProductTileShoppingView = ({product, handleProductDetails}) => {
                         }                        
                       </div>
                     </CardContent>
-
-                    <CardFooter>
-                      <Button className='w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition-colors duration-300'>
+               </div>
+               {/* CARD FOOTER FOR ADD */}
+                <CardFooter>
+                      <Button 
+                        onClick={()=>handleAddToCart(product._id)}
+                        className='w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90 transition-colors duration-300'>
                         Add to Cart
                       </Button>
-                    </CardFooter>
-               </div>
+                  </CardFooter>
       
         </Card>
     </>
