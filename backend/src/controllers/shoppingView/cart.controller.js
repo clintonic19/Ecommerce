@@ -149,20 +149,28 @@ const updateCartItems = async (req, res) => {
           // Check if the product already exists in the cart
         const existingItemIndex = cartItems.items.findIndex(item => item.productId.toString() === productId);
         
-        if(existingItemIndex !== -1) { 
+        if(existingItemIndex === -1) { 
            return res.status(404).json({
                 success: false,
                 message: 'Product not found in the cart' 
             });
         };
+        // if(existingItemIndex !== -1) { 
+        //    return res.status(404).json({
+        //         success: false,
+        //         message: 'Product not found in the cart' 
+        //     });
+        // };
 
         cartItems.items[existingItemIndex].quantity = quantity; // Update the quantity of the product in the cart
-
+        
         await cartItems.save(); // Save the updated cart items to the database
         await cartItems.populate({ 
             path: 'items.productId', 
             select: 'title price salePrice description image' 
         }); // Populate product details
+
+        
 
         const populatedCartItems = cartItems.items.map(item => ({
             // productId: item.productId ? item.productId._id : null,
@@ -197,7 +205,7 @@ const updateCartItems = async (req, res) => {
             message: err.message 
         });
     }
-}
+};
 
 const deleteCartItems = async (req, res) => {
     try{

@@ -19,7 +19,7 @@ export const addToCart= createAsyncThunk('cart/AddToCart',
         quantity
       });  
             //API Endpoint from Backend      
-            const response = await axios.post(`http://localhost:8001/api/shop/carts/addToCart`, {
+            const response = await axios?.post(`http://localhost:8001/api/shop/carts/addToCart`, {
             userId, productId, quantity,     
         },
         {withCredentials: true,}

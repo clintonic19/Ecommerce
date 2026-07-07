@@ -50,7 +50,11 @@ export const fetchProductDetails = createAsyncThunk('/products/fetchProductDetai
 const shoppingViewProductSlice = createSlice({
         name : "shoppingViewProductSlice",
         initialState,
-        reducers : {},
+        reducers : {
+            setProductDetails : (state ) =>{
+                state.productDetails =null
+            }
+        },
     
         //extra reducers for handling async thunks for filterAllProducts
         extraReducers : (builder) =>{
@@ -77,5 +81,6 @@ const shoppingViewProductSlice = createSlice({
         }
     });
 
-    export default shoppingViewProductSlice.reducer;
+export const {setProductDetails} = shoppingViewProductSlice.actions;
+export default shoppingViewProductSlice.reducer;
     

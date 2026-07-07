@@ -13,22 +13,37 @@ import UserCartWrapper from "./cartWrapper"
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { fetchCartItems } from '../../store/cart-slice/cartSlice'
+import { Label } from '../ui/label'
 
 
 // Menu items component for Desktop Navigation or Large Devices
 const MenuItems = () => {
+  const navigate = useNavigate()
+
+  // function to navigate the nav headers
+const handleNavigate = (getCurrentMenuItem) => {
+  sessionStorage.removeItem("productFilters")
+  const currentFilter = getCurrentMenuItem?.id !== "home" ? {
+    category : [getCurrentMenuItem?.id]
+  } : null
+  sessionStorage.setItem("productFilters", JSON.stringify(currentFilter));
+  navigate(getCurrentMenuItem?.path)
+};
+
+
   return(
     <>
           <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
           {menuItemsHeaders?.map((menu) => (
-            <Link
+            <Label
               // onClick={() => (MenuItems)}
+              onClick={() => handleNavigate(menu)}
               className="text-sm font-medium cursor-pointer"
               key={menu?.id}
-              to={menu?.path}
+              // to={menu?.path}
             >
               {menu?.label}
-            </Link>
+            </Label>
           ))}
         </nav>
     </>

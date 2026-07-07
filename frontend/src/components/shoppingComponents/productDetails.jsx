@@ -6,15 +6,48 @@ import { Separator } from '../ui/separator'
 import { Avatar, AvatarFallback } from '../ui/avatar'
 import { StarIcon } from 'lucide-react'
 import { Input } from '../ui/input'
+import { addToCart, fetchCartItems } from '../../store/cart-slice/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'sonner'
+import { setProductDetails } from '../../store/shoppingView/productShoppingViewSlice'
 
-
-// handle ADD to Cart
-const handleAddToCart = (productId, totalStock) => {}
 
 const ProductDetailsContent = ({productDetails, open, setOpen}) => {
+  // handle ADD product to CART
+  const dispatch = useDispatch();
+  const {user} = useSelector(state=>state.auth)
+
+const handleAddToCart = (currentProductId)=>{
+   
+   dispatch(addToCart({userId : user._id, productId : currentProductId, quantity : 1 }))
+   .then((data) => {
+    if(data?.payload?.success){
+      dispatch(fetchCartItems(user._id));
+        toast.success(data?.payload?.message, { 
+               variant: "success", 
+               position: "top-right",
+             });
+   } else {
+      toast.error(
+         data?.payload?.message || "Failed to add item",
+         { 
+          variant: "success", 
+          position: "top-right",
+        }
+      );
+    }
+   }); 
+};
+
+// Dialog close for product details
+const handleProductDetailsDialogClose = () =>{
+  setOpen(false)
+  dispatch(setProductDetails())
+}
+
   return (
     <>
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleProductDetailsDialogClose} >
         <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
             <div className="relative overflow-hidden rounded-lg">
                 {/* Product Image */}
@@ -73,8 +106,7 @@ const ProductDetailsContent = ({productDetails, open, setOpen}) => {
                   handleAddToCart(
                     productDetails?._id,
                     productDetails?.totalStock
-                  )
-                }
+                  )}
               >
                 Add to Cart
               </Button>
@@ -113,89 +145,6 @@ const ProductDetailsContent = ({productDetails, open, setOpen}) => {
                   </div>             
             </div>
 
-            <div className="grid gap-6">
-                  <div className="flex gap-4">
-                    <Avatar className="w-10 h-10 border">
-                      <AvatarFallback>SM</AvatarFallback>
-                    </Avatar>
-                    <div className="grid gap-1">
-                    <div className="flex items-center gap-2">
-                        <h3 className="font-bold">Username</h3>
-                    </div>
-
-                       {/* comment/review rating */}
-                      <div className="flex items-center gap-0.5">
-                        {/* <StarRatingComponent  /> */}
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                      </div>
-                      <p className="text-muted-foreground">This is an awesome product!</p>
-                      </div>
-                                      
-                     
-                      
-                    
-                  </div>             
-            </div>
-
-            <div className="grid gap-6">
-                  <div className="flex gap-4">
-                    <Avatar className="w-10 h-10 border">
-                      <AvatarFallback>SM</AvatarFallback>
-                    </Avatar>
-                    <div className="grid gap-1">
-                    <div className="flex items-center gap-2">
-                        <h3 className="font-bold">Username</h3>
-                    </div>
-
-                       {/* comment/review rating */}
-                      <div className="flex items-center gap-0.5">
-                        {/* <StarRatingComponent  /> */}
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                      </div>
-                      <p className="text-muted-foreground">This is an awesome product!</p>
-                      </div>
-                                      
-                     
-                      
-                    
-                  </div>             
-            </div>
-
-            <div className="grid gap-6">
-                  <div className="flex gap-4">
-                    <Avatar className="w-10 h-10 border">
-                      <AvatarFallback>SM</AvatarFallback>
-                    </Avatar>
-                    <div className="grid gap-1">
-                    <div className="flex items-center gap-2">
-                        <h3 className="font-bold">Username</h3>
-                    </div>
-
-                       {/* comment/review rating */}
-                      <div className="flex items-center gap-0.5">
-                        {/* <StarRatingComponent  /> */}
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                        <StarIcon className='w-5 h-5 fill-primary'/>
-                      </div>
-                      <p className="text-muted-foreground">This is an awesome product!</p>
-                      </div>
-                                      
-                     
-                      
-                    
-                  </div>             
-            </div>
             {/* Write a Review */}
                 <div className="mt-2 flex gap-2">
                      <Input placeholder="Write a review..."/>

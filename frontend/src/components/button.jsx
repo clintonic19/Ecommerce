@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+// import { Button } from '../ui/button'
+
 
 const Button = ({ icon, label, type = "button", className, onClick }) => {
     return (
@@ -7,6 +9,10 @@ const Button = ({ icon, label, type = "button", className, onClick }) => {
             <span>{label}</span>
             {icon && icon}
         </button>
+        // <button type={type} className={clsx("px-2 py-2 outline-none", className)} onClick={onClick}>
+        //     <span>{label}</span>
+        //     {icon && icon}
+        // </button>
     );
 };
 

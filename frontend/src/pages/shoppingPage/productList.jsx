@@ -78,7 +78,7 @@ const ProductList = () => {
 const handleAddToCart = (currentProductId)=>{
    dispatch(addToCart({userId : user._id, productId : currentProductId, quantity : 1 }))
    .then((data) => {
-    if(data?.payload.success){
+    if(data?.payload?.success){
       dispatch(fetchCartItems(user._id));
         toast.success(data?.payload?.message, { 
                variant: "success", 
@@ -95,17 +95,7 @@ const handleAddToCart = (currentProductId)=>{
     }
    }); 
 }
-// const handleAddToCart = (currentProductId)=>{
-// dispatch(addToCart(currentProductId)).then((result) => {
-//    if (result?.payload?.success) {
-//       toast.success("Added to cart");
-//    } else {
-//       toast.error(
-//          result?.payload?.message || "Failed to add item"
-//       );
-//    }
-// });
-// }
+
 
   // FETCH ALL PRODUCTS FROM API
   useEffect(()=>{
@@ -156,7 +146,7 @@ const handleAddToCart = (currentProductId)=>{
                
                {/* Dropdown for sorting */}
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger >
                 <Button variant='outline' size='sm' className='flex items-center gap-2'>
                   <ArrowUpDownIcon className='h-4 w-4'/>
                     <span>Sort By</span>
