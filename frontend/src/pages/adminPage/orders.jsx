@@ -1,10 +1,13 @@
 import React from 'react'
+import AdminOrders from '../../components/adminComponents/admin-orders'
 
 const Orders = () => {
   return (
-    <div>
+    <>
       <h1>Admin Orders</h1>
-    </div>
+      <AdminOrders />
+
+    </>
   )
 }
 

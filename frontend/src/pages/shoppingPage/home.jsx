@@ -140,6 +140,7 @@ useEffect(() => {
           {/* Mapping category */}
             {categoriesWithIcon.map((categoryItem) => (
               <Card
+              key={categoryItem.id}
                 onClick={() =>
                   handleNavigateToListingPage(categoryItem, "category")
                 }
@@ -163,6 +164,7 @@ useEffect(() => {
           {/* Mapping category */}
             {brandsWithIcon.map((brandItem) => (
               <Card
+              key={brandItem.id}
                 onClick={() =>
                   handleNavigateToListingPage(brandItem, "brand")
                 }
@@ -183,9 +185,9 @@ useEffect(() => {
       <div className='container mx-auto px-4'>
         <h2 className='text-3xl font-bold text-center mb-8'> Feature Products </h2>
         </div>
-         <div div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {
-            productList && productList.length > 0 ?
+            productList && productList?.length > 0 ?
             productList?.map((productItem )=>(
                 <ProductTileShoppingView 
                   handleProductDetails={handleProductDetails} 

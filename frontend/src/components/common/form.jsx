@@ -85,10 +85,9 @@ const Form = ({ formControls, FormData, setFormData, onSubmit, buttonText, isBtn
             {/* Render form controls dynamically */}
 
             {
-                formControls.map(control => 
+               formControls?.map((control) => 
                     <div key={control?.name} className=" grid w-full gap-1.5">
                         <Label htmlFor={control?.name} className="mb-2 text-base font-medium">{control?.label}</Label>
-
                         {inputByComponentType(control) }
                         
                     </div>
@@ -104,6 +103,21 @@ const Form = ({ formControls, FormData, setFormData, onSubmit, buttonText, isBtn
            buttonText={buttonText || "Submit"}
         /> */}
     </form>
+
+    // New CODE
+    //  <form onSubmit={onSubmit}>
+    //   <div className="flex flex-col gap-3">
+    //     {formControls.map((controlItem) => (
+    //       <div className="grid w-full gap-1.5" key={controlItem.name}>
+    //         <Label className="mb-1">{controlItem.label}</Label>
+    //         {renderInputsByComponentType(controlItem)}
+    //       </div>
+    //     ))}
+    //   </div>
+    //   <Button disabled={isBtnDisabled} type="submit" className="mt-2 w-full">
+    //     {buttonText || "Submit"}
+    //   </Button>
+    // </form>
   );
 };
 

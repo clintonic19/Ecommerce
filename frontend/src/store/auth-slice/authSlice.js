@@ -26,6 +26,7 @@ export const registerUser = createAsyncThunk('/auth/register',
             return res?.data;
         } catch (error) {
             console.log("Error in user registration", error);
+            throw error;
         }
     }
 )
@@ -156,7 +157,6 @@ const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(checkAuth.fulfilled, (state, action) =>{
-                console.log("Login filled action", action);
                 state.isLoading = false;
                 // state.user = action.payload?.user || action.payload;
                 state.user = action.payload?.success ? action?.payload?.user : null;

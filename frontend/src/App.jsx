@@ -85,7 +85,7 @@ function App() {
           </Route>
 
           {/* NOT FOUND PAGE ROUTE */}
-          <Route path="*" element={<NotFound/>} />
+          <Route path="" element={<NotFound/>} />
           <Route path="/unauthorized" element={<UnAuthorized/>} />
           
       </Routes>

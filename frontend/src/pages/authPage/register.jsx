@@ -45,8 +45,8 @@ const Register = () => {
       }        
       // toast.success("Registration Successful");
     }).catch((error) => {
-      console.log("Error in user registration:", error);
       toast.error("Registration Failed");
+      error.message
     });
     console.log("This is the submit button for FormDAta",formData)
   }

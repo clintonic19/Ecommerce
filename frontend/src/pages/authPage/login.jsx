@@ -38,7 +38,6 @@ const Login = () => {
                   position: "top-right",
                 });
       }
-      console.log("This is the login response data", data);
     });
     // console.log(formData);
   }

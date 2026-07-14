@@ -3,6 +3,8 @@ import authReducer from './auth-slice/authSlice';
 import adminProductSlice from './admin/products-slice/productSlice';
 import shoppingViewProductSlice from './shoppingView/productShoppingViewSlice';
 import shoppingCartSlice from "./cart-slice/cartSlice"
+import shopAddressSlice from "./address-slice/addressSlice"
+import shopOrderSlice from "./order-slice/orderSlice"
 
 const store = configureStore({
     reducer: {
@@ -10,7 +12,9 @@ const store = configureStore({
         auth: authReducer,
         adminProducts: adminProductSlice,
         shoppingViewProducts: shoppingViewProductSlice,
-        shoppingCartSlice : shoppingCartSlice
+        shoppingCartSlice : shoppingCartSlice,
+        shopAddressSlice : shopAddressSlice,
+        shopOrderSlice : shopOrderSlice,
     },
 
     // middleware: (getDefaultMiddleware) =>

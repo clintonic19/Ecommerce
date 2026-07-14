@@ -85,6 +85,7 @@ const HeaderRightContent = () =>{
           </Button>
           {/* User Cart Items Wrapper */}
           <UserCartWrapper 
+            setOpenCartSheet={setOpenCartSheet}
             // cartItems={ cartItems && cartItems.items &&  cartItems.items.length > 0 ? cartItems.items : []}
             cartItems={cartItems?.items?.length ? cartItems.items : []} 
            />
@@ -123,9 +124,7 @@ const HeaderRightContent = () =>{
 }
 
 const ShoppingHeader = () => {
-  const{isAuthenticated, user } = useSelector(state=>state.auth);
-  console.log("User Auth::: shop header", user);
-  
+  const{isAuthenticated, user } = useSelector(state=>state.auth); 
   return (
   <>
     <header className="sticky top-0 z-40 w-full border-b bg-background">

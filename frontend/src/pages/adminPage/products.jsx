@@ -131,14 +131,11 @@ const Products = () => {
   //     .map((key) => formData[key] !== "")
   //     .every((item) => item);
   // }
-
-  console.log("Form Data EDIT :::", formData, );
   
   useEffect(() => {
   dispatch(fetchAllProducts());
 }, [dispatch]);
 
-console.log("Product List:::", uploadImageUrl, productList);
 
 //   useEffect(() => {
 //   if (uploadImageUrl) {
@@ -149,9 +146,6 @@ console.log("Product List:::", uploadImageUrl, productList);
 //   }
 // }, [uploadImageUrl]);
 
-// console.log("Form Data :::", formData, );
-// console.log("Product List:::",  productList);
-// console.log("Upload Image URL:::",  uploadImageUrl);
 
   return <>
   <Fragment> 
