@@ -6,7 +6,7 @@ import Address from '../../components/shoppingComponents/address';
 import UserCartItemsContent from '../../components/shoppingComponents/cartItemsContents';
 import { Button } from '../../components/ui/button';
 import { toast } from 'sonner';
-import axios from 'axios';
+// import axios from 'axios';
 import { createOrder } from '../../store/order-slice/orderSlice';
 
 const Checkout = () => {
@@ -23,17 +23,31 @@ const totalCartAmount =
     ? cartItems.items.reduce(
       (sum, currentItem) =>
       sum + (currentItem?.salePrice > 0 ? currentItem?.salePrice  : currentItem?.price) * currentItem?.quantity, 0) : 0;
-
-      console.log("CartItem:::",cartItems);
-      console.log("currentSelectedAddress:::",currentSelectedAddress);
       
 // Proceed to payment handler
 const handleInitiatePaypalPayment = async()=>{
+
+  if (cartItems.length === 0) {     
+        toast.warning(
+          "No Item in Cart. Please Add an Item to proceed.", { variant: "warning",  position: "top-right",}
+      );
+
+      return;
+    }
+
+  
+  if (currentSelectedAddress === null) {
+      toast.warning(
+        "Please select one address to proceed.", { variant: "warning",  position: "top-right",}
+      );
+      return;
+    }  
 
   const orderData ={
 
         userId : user?._id,
         email: user?.email,
+        cartId: cartItems._id,
 
         cartItems : cartItems.items.map(cartItem=>({
         productId: cartItem?.productId,
@@ -119,36 +133,11 @@ const handleInitiatePaypalPayment = async()=>{
   //   console.log("Payment frontend:", res.data);
   // } catch (error) {
   //   console.error("Payment Error:", error.response?.data || error.message);
-  // }
+  // }   
 
-  
-
-  
-    // if (cartItems.length === 0) {     
-    //    toast.success(data?.payload?.message, { 
-    //         variant: "success", 
-    //         position: "top-right",
-    //       });
-    //   // toast({
-    //   //   title: "Your cart is empty. Please add items to proceed",
-    //   //   variant: "destructive",
-    //   // });
-
-    //   return;
+    // if(res.status){
+    //  window.location.href = callback_url;
     // }
-
-
-    // if (currentSelectedAddress === null) {
-    //   toast({
-    //     title: "Please select one address to proceed.",
-    //     variant: "destructive",
-    //   });
-
-    //   return;
-    // }  
-    if(res.status){
-     window.location.href = callback_url;
-    }
 }
 
 
@@ -175,7 +164,7 @@ const handleInitiatePaypalPayment = async()=>{
         <div className="flex flex-col gap-4">
           {cartItems && cartItems.items && cartItems.items.length > 0
             ? cartItems.items.map((item) => (
-                <UserCartItemsContent cartItem={item} />
+                <UserCartItemsContent key={item} cartItem={item} />
               ))
             : null}
           <div className="mt-8 space-y-4">

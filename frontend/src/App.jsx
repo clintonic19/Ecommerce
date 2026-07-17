@@ -6,6 +6,7 @@ import AdminComponentLayout from "./components/adminComponents/adminComponentLay
 import Dashboard from "./pages/adminPage/dashboard"
 import Orders from "./pages/adminPage/orders"
 import Products from "./pages/adminPage/products"
+import Users from "./pages/adminPage/users"
 import ShoppingComponentLayout from "./components/shoppingComponents/shoppingComponentLayout"
 import NotFound from "./pages/notFoundPage/notFound"
 import Home from "./pages/shoppingPage/home"
@@ -18,6 +19,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { checkAuth } from "./store/auth-slice/authSlice"
 import Loader from "./components/Loader"
+import PayStack from "./pages/shoppingPage/payStack-return"
+import PaymentSuccess from "./pages/shoppingPage/payment-success"
+
 
 
 function App() {
@@ -64,6 +68,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="orders" element={<Orders />} />
             <Route path="products" element={<Products />} />
+            <Route path="users" element={<Users />} />
           </Route>
 
           {/* Shopping Routes */}
@@ -81,6 +86,8 @@ function App() {
             <Route path="account" element={<Account />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="list" element={<ProductList />} />
+            <Route path="payment-checkout" element={<PayStack/>}/>
+            <Route path="payment-success" element={<PaymentSuccess/>}/>
 
           </Route>
 

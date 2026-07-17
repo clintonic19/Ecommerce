@@ -71,7 +71,6 @@ const ProductList = () => {
   }
   setFilters(updatedFilters);// Update the state with the new filters
   sessionStorage.setItem("productFilters", JSON.stringify(updatedFilters));
-  console.log("Updated filters:::", updatedFilters);
 };
 
 // handle ADD product to CART
@@ -101,7 +100,6 @@ const handleAddToCart = (currentProductId)=>{
   useEffect(()=>{
     if(filters !== null && sortBy !== null)
       dispatch(filterAllProducts({filterParams : filters, sortParams : sortBy}));
-    console.log("Filter:", searchParams, filters);
   },[dispatch, sortBy, filters]);
 
   // Search params change effect to update filters state
@@ -146,7 +144,7 @@ const handleAddToCart = (currentProductId)=>{
                
                {/* Dropdown for sorting */}
             <DropdownMenu>
-              <DropdownMenuTrigger >
+              <DropdownMenuTrigger asChild >
                 <Button variant='outline' size='sm' className='flex items-center gap-2'>
                   <ArrowUpDownIcon className='h-4 w-4'/>
                     <span>Sort By</span>

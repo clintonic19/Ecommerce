@@ -3,6 +3,7 @@ import {
   CircleStar,
   LayoutDashboard,
   ShoppingBasket,
+  Users,
 } from "lucide-react";
 
 import { Fragment, } from "react";
@@ -27,6 +28,12 @@ const adminSidebarMenuItems = [
     label: "Orders",
     path: "/admin/orders",
     icon: <CircleStar />,
+  },
+  {
+    id: "users",
+    label: "Users",
+    path: "/admin/users",
+    icon: <Users />,
   },
 ];
 

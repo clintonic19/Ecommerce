@@ -147,6 +147,7 @@ const Address = ({setCurrentSelectedAddress}) => {
         {addressList && addressList.length > 0
           ? addressList.map((singleAddressItem) => (
               <AddressCard
+              key={singleAddressItem}
                 // selectedId={selectedId}
                 handleDeleteAddress={handleDeleteAddress}
                 addressInfo={singleAddressItem}

@@ -5,6 +5,7 @@ const router = express.Router();
 const authRoutes = require('./auth.routes');
 // const messageRoute = require('./message.route');
 const adminRoutes = require('./admin/products.routes');
+const adminUsersRoutes = require('./admin/users.routes');
 const shoppingRoutes = require('./shoppingView/products.routes');
 const cartRoutes = require('./shoppingView/cart.routes');
 const addressRoutes = require('./shoppingView/address.routes')
@@ -14,6 +15,7 @@ const OrderRoutes = require('./shoppingView/order.routes')
 // Mounting all Local route modules
 router.use('/auth', authRoutes);
 router.use('/admin/products', adminRoutes);
+router.use('/admin/users', adminUsersRoutes);
 router.use('/shop/products', shoppingRoutes)
 router.use('/shop/carts', cartRoutes);
 router.use('/shop/address', addressRoutes);

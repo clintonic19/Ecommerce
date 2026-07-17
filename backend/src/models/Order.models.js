@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
     userId: String,
+    cartId: String,
+    
     cartItems:[{
         productId: String,
         title: String,

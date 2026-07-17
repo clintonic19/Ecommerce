@@ -69,7 +69,6 @@ const Home = () => {
 
  // Handle product details click
   const handleProductDetails = (currentProductId) =>{
-    console.log(currentProductId);
     dispatch(fetchProductDetails(currentProductId));
   }
 

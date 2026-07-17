@@ -62,7 +62,6 @@ const HeaderRightContent = () =>{
   // LOGOUT FUNCTION
    const handleLogout = (data)=> {
     dispatch(logoutUser());
-    console.log("Logout successful");
     toast.success(data?.payload?.message || "Logout successful", {
       variant: "success", 
       position: "top-right",

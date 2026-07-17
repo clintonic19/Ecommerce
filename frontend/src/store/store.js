@@ -5,6 +5,7 @@ import shoppingViewProductSlice from './shoppingView/productShoppingViewSlice';
 import shoppingCartSlice from "./cart-slice/cartSlice"
 import shopAddressSlice from "./address-slice/addressSlice"
 import shopOrderSlice from "./order-slice/orderSlice"
+import adminUsersSlice from "./admin/users-slice/usersSlice"
 
 const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
         shoppingCartSlice : shoppingCartSlice,
         shopAddressSlice : shopAddressSlice,
         shopOrderSlice : shopOrderSlice,
+        adminUsers: adminUsersSlice,
     },
 
     // middleware: (getDefaultMiddleware) =>

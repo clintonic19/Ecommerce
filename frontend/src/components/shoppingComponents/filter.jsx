@@ -23,9 +23,8 @@ const Filter = ({ filters, handleFilterOptions}) => {
               <h3 className="text-base font-bold">{keyItem}</h3>
               <div className="grid gap-2 mt-2">
                 {filterOptions[keyItem].map((option) => (
-                  <Label className="flex font-medium items-center gap-2 ">
+                  <Label key={option.id} className="flex font-medium items-center gap-2 ">
                     <Checkbox
-                    key={option.id}
                       checked={filters && Object.keys(filters).length > 0 && filters[keyItem] && filters[keyItem].indexOf(option.id) > -1} // Check if the current option is selected based on the filters state
   
                       onCheckedChange={() => handleFilterOptions(keyItem, option.id)}
